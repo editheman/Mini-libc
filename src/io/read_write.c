@@ -13,7 +13,6 @@ ssize_t write(int fd, const void *buf, size_t len)
 		errno = -ret;
 		return -1;
 	}
-
 	return ret;
 }
 
