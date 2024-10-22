@@ -18,13 +18,14 @@ int main(void)
 	dst[strlen(src)] = '\0';
 
 	write(1, dst, strlen(dst));
-
+	//write(1, str2, strlen(str2));
 	/*
 	 * dst and src overlap.
 	 * dst should point to "memmove can be very useful.\n".
 	 */
-	memmove(str2 + 20, str2 + 15, 11);
+	//write(1, dst, strlen(dst));
+	memcpy(str2 + 20, str2 + 15, 11);
 	write(1, str2, strlen(str2));
-
+	//write(1, dst, strlen(dst));
 	return 0;
 }
