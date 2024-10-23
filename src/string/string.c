@@ -58,7 +58,7 @@ int strcmp(const char *str1, const char *str2)
 		return 1;
 	else if (strlen(str1) < strlen(str2))
 			return -1;
-	for(int i = 0; i < strlen(str1); i++)
+	for(size_t i = 0; i < strlen(str1); i++)
 		if(str1[i] - str2[i] != 0)
 			return str1[i]-str2[i];
 	return 0;
@@ -69,7 +69,7 @@ int strncmp(const char *str1, const char *str2, size_t len)
 	/* TODO: Implement strncmp(). */
 	if(strlen(str1) < len || strlen(str2) < len)
 		return -1;
-	for(int i = 0 ; i < len ; i++)
+	for(size_t i = 0 ; i < len ; i++)
 		if(str1[i] - str2[i] != 0)
 			return str1[i]-str2[i];
 	return 0;
@@ -88,7 +88,7 @@ size_t strlen(const char *str)
 char *strchr(const char *str, int c)
 {
 	/* TODO: Implement strchr(). */
-	for (int i = 0 ; i <= strlen(str) ; i++)
+	for (size_t i = 0 ; i <= strlen(str) ; i++)
 		if(str[i] == (char)c)
 			return (char *)(str+i);
 	return NULL;
@@ -98,7 +98,7 @@ char *strrchr(const char *str, int c)
 {
 	/* TODO: Implement strrchr(). */
 	int index = -1;
-	for (int i = 0 ; i <= strlen(str) ; i++)
+	for (size_t i = 0 ; i <= strlen(str) ; i++)
 		if(str[i] == (char)c)
 			index = i;
 	if(index != -1)
@@ -111,14 +111,14 @@ char *strstr(const char *haystack, const char *needle)
 	/* TODO: Implement strstr(). */
 	if(strlen(haystack) < strlen(needle))
 		return NULL;
-	for(int i = 0 ; i <= strlen(haystack) ; i++){
-		int k = 0;
+	for(size_t i = 0 ; i <= strlen(haystack) ; i++){
+		size_t k = 0;
 		if(haystack[i] == needle[0]){
-			for(int j = i ; k <= strlen(needle) && j <= strlen(haystack) ; k++, j++)
+			for(size_t j = i ; k <= strlen(needle) && j <= strlen(haystack) ; k++, j++)
 				if(haystack[j] != needle[k])
 					break;
 			if(k == strlen(needle))
-				return haystack + i;
+				return (char *)haystack + i;
 		}
 	}
 	return NULL;
@@ -130,10 +130,10 @@ char *strrstr(const char *haystack, const char *needle)
 	if(strlen(haystack) < strlen(needle))
 		return NULL;
 	int index = -1;
-	for(int i = 0 ; i <= strlen(haystack) ; i++){
-		int k = 0;
+	for(size_t i = 0 ; i <= strlen(haystack) ; i++){
+		size_t k = 0;
 		if(haystack[i] == needle[0]){
-			for(int j = i ; k <= strlen(needle) && j <= strlen(haystack) ; k++, j++)
+			for(size_t j = i ; k <= strlen(needle) && j <= strlen(haystack) ; k++, j++)
 				if(haystack[j] != needle[k])
 					break;
 			if(k == strlen(needle))
@@ -141,7 +141,7 @@ char *strrstr(const char *haystack, const char *needle)
 		}
 	}
 	if(index != -1)
-		return haystack + index;
+		return (char *)haystack + index;
 	return NULL;
 }
 
@@ -150,7 +150,7 @@ void *memcpy(void *destination, const void *source, size_t num)
 	/* TODO: Implement memcpy(). */
 	char *dest = (char *)destination;
 	char *src = (char *)source;
-	for (int i = 0 ; i < num ; i++)
+	for (size_t i = 0 ; i < num ; i++)
 		dest[i] = src[i];
 	return destination;
 }
@@ -178,7 +178,7 @@ int memcmp(const void *ptr1, const void *ptr2, size_t num)
 	char *ptr_aux1 = (char *)ptr1;
 	char *ptr_aux2 = (char *)ptr2;
 
-	for(int i = 0 ; i < num ; i++)
+	for(size_t i = 0 ; i < num ; i++)
 		if(ptr_aux1[i] - ptr_aux2[i] != 0)
 			return ptr_aux1[i] - ptr_aux2[i];
 	return 0;
@@ -188,7 +188,7 @@ void *memset(void *source, int value, size_t num)
 {
 	/* TODO: Implement memset(). */
 	char *src = (char *)source;
-	for(int i = 0 ; i < num ; i++)
+	for(size_t i = 0 ; i < num ; i++)
 		src[i] = value;
 	return source;
 }
