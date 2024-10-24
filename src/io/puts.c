@@ -1,6 +1,6 @@
-#include <unistd.h>  // For write()
-#include <string.h>  // For strlen()
-#include <errno.h>   // For setting errno
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 int puts(const char *s) {
 	write(1, s, strlen(s));
