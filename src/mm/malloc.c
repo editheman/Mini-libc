@@ -12,8 +12,7 @@ void *malloc(size_t size)
 	/* TODO: Implement malloc(). */
 	void *p = NULL;
 	p = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-	mem_list_init();
-	if(p == NULL)
+	if(p == MAP_FAILED)
 		return NULL;
 	mem_list_add(p, size);
 	return p;
@@ -24,9 +23,10 @@ void *calloc(size_t nmemb, size_t size)
 	/* TODO: Implement calloc(). */
 	void *p;
 	p = malloc(nmemb*size);
-	if(p == NULL)
+	if(p == MAP_FAILED)
 		return NULL;
 	memset(p, 0, nmemb*size);
+	mem_list_add(p, nmemb*size);
 	return p;
 }
 
@@ -37,10 +37,8 @@ void free(void *ptr)
 	elem = mem_list_find(ptr);
 	if(elem == NULL)
 		return;
-	munmap(elem->next, elem->len);
+	munmap(elem->start, elem->len);
 	mem_list_del(elem->start);
-	mem_list_cleanup();
-	mem_list_del(ptr);
 }
 
 void *realloc(void *ptr, size_t size)

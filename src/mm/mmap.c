@@ -10,7 +10,7 @@
 
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 {
-    long res = syscall(__NR_mmap, addr, length, prot, flags, fd, offset);
+    long long res = syscall(__NR_mmap, addr, length, prot, flags, fd, offset);
 
     if (res < 0) {
         errno = -(res);
@@ -23,7 +23,7 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 void *mremap(void *old_address, size_t old_size, size_t new_size, int flags)
 {
 	/* TODO: Implement mremap(). */
-	long res = syscall(__NR_mremap, old_address, old_size, new_size, flags);
+	long long res = syscall(__NR_mremap, old_address, old_size, new_size, flags);
 
     if (res == -1) {
         errno = -(res);
@@ -36,7 +36,7 @@ void *mremap(void *old_address, size_t old_size, size_t new_size, int flags)
 int munmap(void *addr, size_t length)
 {
 	/* TODO: Implement munmap(). */
-	long res = syscall(__NR_munmap, addr, length);
+	long long res = syscall(__NR_munmap, addr, length);
 
 	if (res == -1) {
 		errno = -(res);
